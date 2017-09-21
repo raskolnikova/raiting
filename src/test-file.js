@@ -1,5 +1,5 @@
-export default {
-    test() {
-        console.log('File test-file.js was imported');
-    }
-}
+  export default {
+      test() {
+          console.log('File test-file.js was imported');
+      }
+  }

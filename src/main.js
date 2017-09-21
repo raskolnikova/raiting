@@ -1,68 +1,68 @@
-import handsontable from 'handsontable';
-import math from 'mathjs';
-import * as $ from 'jquery';
+  import handsontable from 'handsontable';
+  import math from 'mathjs';
+  import * as $ from 'jquery';
 
-let criteriorsPriority = [
-    []
-]
-let alternatives = [
-    []
-]
+  let criteriorsPriority = [
+      []
+  ]
+  let alternatives = [
+      []
+  ]
 
-let criteriorsPriorityTable = null;
-let alternativesTables = [];
-
-
-$('#submitCounts').click(function() {
-    $("#table-group").hide("slow");
-
-    let countCriterior = +$('#count-criteriors').val();
-    let countAlternatives = +$('#count-alternatives').val();
-
-    criteriorsPriorityTable = new handsontable(document.getElementById('criteriors'), {
-        data: [
-            []
-        ],
-        rowHeaders: false,
-        colHeaders: false,
-        minCols: countCriterior,
-        minRows: countCriterior,
-    });
-
-    for (let i = 0; i < countCriterior; i++) {
-        let domElement = `<div class='table-criterior' id=table-alternatives${i}></div>`;
-        $("#wrap-alternatives").append(domElement);
-
-        let alternativesTable = new handsontable(document.getElementById(`table-alternatives${i}`), {
-            data: [
-                []
-            ],
-            rowHeaders: false,
-            colHeaders: false,
-            minCols: countAlternatives,
-            minRows: countAlternatives,
-        });
-
-        alternativesTables[i] = alternativesTable
-    }
-
-    $("#table-group").show("slow");
-})
+  let criteriorsPriorityTable = null;
+  let alternativesTables = [];
 
 
-$('#submitTables').click(function() {
-    debugger
-    criteriorsPriority = stringToNumberArray(criteriorsPriorityTable.getData());
-    alternatives = alternativesTables.map(function(item) {
-        return item.getData();
-    });
-})
+  $('#submitCounts').click(function() {
+      $("#table-group").hide("slow");
 
-function stringToNumberArray(array) {
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array.length; j++) {
-            array[i][j] = +array[i][j];
-        }
-    }
-    return array
-}
+      let countCriterior = +$('#count-criteriors').val();
+      let countAlternatives = +$('#count-alternatives').val();
+
+      criteriorsPriorityTable = new handsontable(document.getElementById('criteriors'), {
+          data: [
+              []
+          ],
+          rowHeaders: false,
+          colHeaders: false,
+          minCols: countCriterior,
+          minRows: countCriterior,
+      });
+
+      for (let i = 0; i < countCriterior; i++) {
+          let domElement = `<div class='table-criterior' id=table-alternatives${i}></div>`;
+          $("#wrap-alternatives").append(domElement);
+
+          let alternativesTable = new handsontable(document.getElementById(`table-alternatives${i}`), {
+              data: [
+                  []
+              ],
+              rowHeaders: false,
+              colHeaders: false,
+              minCols: countAlternatives,
+              minRows: countAlternatives,
+          });
+
+          alternativesTables[i] = alternativesTable
+      }
+
+      $("#table-group").show("slow");
+  })
+
+
+  $('#submitTables').click(function() {
+      debugger
+      criteriorsPriority = stringToNumberArray(criteriorsPriorityTable.getData());
+      alternatives = alternativesTables.map(function(item) {
+          return item.getData();
+      });
+  })
+
+  function stringToNumberArray(array) {
+      for (let i = 0; i < array.length; i++) {
+          for (let j = 0; j < array.length; j++) {
+              array[i][j] = +array[i][j];
+          }
+      }
+      return array
+  }
