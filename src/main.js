@@ -2,53 +2,67 @@ import handsontable from 'handsontable';
 import math from 'mathjs';
 import * as $ from 'jquery';
 
-let criteriorsPriority = [[]]
-let alternatives = [[]]
+let criteriorsPriority = [
+    []
+]
+let alternatives = [
+    []
+]
 
-let criteriorsPriorityTable=null;
+let criteriorsPriorityTable = null;
 let alternativesTables = [];
 
 
-$('#submitCounts').click(function(){
-  let countCriterior =  +$('#count-criteriors').val();
-  let countAlternatives =  +$('#count-alternatives').val();
+$('#submitCounts').click(function() {
+    $("#table-group").hide("slow");
 
-  criteriorsPriorityTable= new handsontable(document.getElementById('criteriors'), {
-    data: criteriorsPriority,
-    rowHeaders: false,
-    colHeaders: false,
-     minCols: countCriterior,
-     minRows: countCriterior,
-  });
+    let countCriterior = +$('#count-criteriors').val();
+    let countAlternatives = +$('#count-alternatives').val();
 
-for (let i = 0; i<countCriterior; i++){
-  let domElement=`<div class='table-criterior' id=table-alternatives${i}></div>`;
-  $("#wrap-alternatives").append(domElement);
-
-  let alternativesTable =  new handsontable(document.getElementById(`table-alternatives${i}`), {
-      data: alternatives,
-      rowHeaders: false,
-      colHeaders: false,
-       minCols: countAlternatives,
-       minRows: countAlternatives,
+    criteriorsPriorityTable = new handsontable(document.getElementById('criteriors'), {
+        data: [
+            []
+        ],
+        rowHeaders: false,
+        colHeaders: false,
+        minCols: countCriterior,
+        minRows: countCriterior,
     });
 
-  alternativesTables[i]=alternativesTable
-}
-})
+    for (let i = 0; i < countCriterior; i++) {
+        let domElement = `<div class='table-criterior' id=table-alternatives${i}></div>`;
+        $("#wrap-alternatives").append(domElement);
 
+        let alternativesTable = new handsontable(document.getElementById(`table-alternatives${i}`), {
+            data: [
+                []
+            ],
+            rowHeaders: false,
+            colHeaders: false,
+            minCols: countAlternatives,
+            minRows: countAlternatives,
+        });
 
-$('#submitTables').click(function(){
-  debugger
-  criteriorsPriority = stringToNumberArray(criteriorsPriorityTable.getData());
-  alternatives = alternativesTables
-})
-
-function stringToNumberArray(array){
-  for(let i = 0;i<array.length;i++){
-    for(let j = 0;j<array.length;j++){
-      array[i][j] = +array[i][j];
+        alternativesTables[i] = alternativesTable
     }
-  }
-  return array
+
+    $("#table-group").show("slow");
+})
+
+
+$('#submitTables').click(function() {
+    debugger
+    criteriorsPriority = stringToNumberArray(criteriorsPriorityTable.getData());
+    alternatives = alternativesTables.map(function(item) {
+        return item.getData();
+    });
+})
+
+function stringToNumberArray(array) {
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array.length; j++) {
+            array[i][j] = +array[i][j];
+        }
+    }
+    return array
 }
