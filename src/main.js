@@ -1,13 +1,9 @@
   import handsontable from 'handsontable';
   import math from 'mathjs';
   import * as $ from 'jquery';
+  import Controller from './controller'
 
-  let criteriorsPriority = [
-      []
-  ]
-  let alternatives = [
-      []
-  ]
+  let controller = new Controller();
 
   let criteriorsPriorityTable = null;
   let alternativesTables = [];
@@ -51,11 +47,20 @@
 
 
   $('#submitTables').click(function() {
-      debugger
-      criteriorsPriority = stringToNumberArray(criteriorsPriorityTable.getData());
-      alternatives = alternativesTables.map(function(item) {
-          return item.getData();
+      controller.criteriorsPriority = stringToNumberArray(criteriorsPriorityTable.getData());
+      controller.alternatives = alternativesTables.map(function(item) {
+          return stringToNumberArray(item.getData());
       });
+
+       let raiting  = controller.getResult()
+
+        raiting.forEach(function(item, i, arr) {
+          let domElement = `<div class='raiting'>${i+1}) ${arr[i][0]}</div>`;
+          $("#wrap-raiting").append(domElement);
+                })
+
+
+
   })
 
   function stringToNumberArray(array) {

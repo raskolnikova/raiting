@@ -2,48 +2,54 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="../node_modules/handsontable/dist/handsontable.min.css" media="screen" title="no title"></link>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-    <link rel="stylesheet" href="../node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
-    <link rel="stylesheet" type="text/css" href='./style.css'></link>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../node_modules/handsontable/dist/handsontable.min.css" media="screen" title="no title"></link>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="../node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
+  <link rel="stylesheet" type="text/css" href='./style.css'></link>
 </head>
 
 <body>
-    gg
-    <div class="container">
+  <div class="container">
 
-        <div class="input-container">
-            <div class="counts">
-                <h6>Введите количество критериев</h6>
-                <input class="form-control" type="text" id="count-criteriors" value="">
-            </div>
-            <div class="counts">
-                <h6>Введите количество альтернатив</h6>
-                <input class="form-control" type="text" id="count-alternatives" value="">
-            </div>
-            <input class="btn btn-primary" type="button" id="submitCounts" value="OK">
-        </div>
+    <div class="input-container">
+      <div class="counts">
+        <h6>Введите количество критериев</h6>
+        <input class="form-control" type="text" id="count-criteriors" value="">
+      </div>
+      <div class="counts">
+        <h6>Введите количество альтернатив</h6>
+        <input class="form-control" type="text" id="count-alternatives" value="">
+      </div>
+      <input class="btn btn-primary" type="button" id="submitCounts" value="OK">
+    </div>
 
 
-        <div id="table-group">
+    <div id="table-group">
 
-            <h6>Заполните таблицу критериев</h6>
-            <div id="criteriors"></div>
+      <h6>Заполните таблицу критериев</h6>
+      <div id="criteriors"></div>
 
-            <h6>Заполните таблицы альтернатив по критериям</h6>
-            <div id="wrap-alternatives"></div>
+      <h6>Заполните таблицы альтернатив по критериям</h6>
+      <div id="wrap-alternatives"></div>
 
-            <input class="btn btn-primary" type="button" id="submitTables" value="OK">
+      <input class="btn btn-primary" type="button" id="submitTables" value="OK">
 
-        </div>
+      <div id="wrap-raiting">
+        <h6>Результат:</h6>
 
+      </div>
 
     </div>
-    <script src="dist/main.bundle.js "></script>
+
+
+
+
+  </div>
+  <script src="dist/main.bundle.js "></script>
 </body>
 
 </html>
