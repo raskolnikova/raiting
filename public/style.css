@@ -50,3 +50,8 @@
   h6 {
       margin: 10px;
   }
+  
+  #addExpert {
+      width: 300px;
+      display: none;
+  }

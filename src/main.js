@@ -1,73 +1,50 @@
-  import handsontable from 'handsontable';
-  import math from 'mathjs';
-  import * as $ from 'jquery';
-  import Controller from './controller'
+import ViewController from './ViewController'
+import * as $ from 'jquery';
 
-  let controller = new Controller();
+let currentCountExperts = 1;
+let expert = new ViewController(currentCountExperts);
 
-  let criteriorsPriorityTable = null;
-  let alternativesTables = [];
+$(document).ready(function() { renderView(currentCountExperts, expert) });
+//$('#addExpert').ready(function() { addExpert() });
 
+function renderView() {
+    let domElement = ` <div id="container_${currentCountExperts}">
+    <div class="input-container">
+        <div class="counts">
+            <h6>Введите количество критериев</h6>
+            <input class="form-control" type="text" id="count-criteriors" value="">
+        </div>
+        <div class="counts">
+            <h6>Введите количество альтернатив</h6>
+            <input class="form-control" type="text" id="count-alternatives" value="">
+        </div>
+        <input class="btn btn-primary" type="button" id="submitCounts" value="OK">
+    </div>
 
-  $('#submitCounts').click(function() {
-      $("#table-group").hide("slow");
+    <div id="table-group">
+        <h6>Заполните таблицу критериев</h6>
+        <div id="criteriors"></div>
 
-      let countCriterior = +$('#count-criteriors').val();
-      let countAlternatives = +$('#count-alternatives').val();
+        <h6>Заполните таблицы альтернатив по критериям</h6>
+        <div id="wrap-alternatives"></div>
 
-      criteriorsPriorityTable = new handsontable(document.getElementById('criteriors'), {
-          data: [
-              []
-          ],
-          rowHeaders: false,
-          colHeaders: false,
-          minCols: countCriterior,
-          minRows: countCriterior,
-      });
+        <input class="btn btn-primary" type="button" id="submitTables" value="OK">
 
-      for (let i = 0; i < countCriterior; i++) {
-          let domElement = `<div class='table-criterior' id=table-alternatives${i}></div>`;
-          $("#wrap-alternatives").append(domElement);
+        <div id="wrap-raiting">
+            <h6>Результат:</h6>
+        </div>
+        <input class="btn btn-primary" type="button" id="addExpert" value="Добавить эксперта">
+        
+        
+    </div>
+</div>`;
+    $(".container ").append(domElement);
+    $(`#container_${currentCountExperts} #submitCounts`).on("click", function() { expert.getTables(expert) })
+    $(`#container_${currentCountExperts} #submitTables`).on("click", function() { expert.getResult(expert) })
+}
 
-          let alternativesTable = new handsontable(document.getElementById(`table-alternatives${i}`), {
-              data: [
-                  []
-              ],
-              rowHeaders: false,
-              colHeaders: false,
-              minCols: countAlternatives,
-              minRows: countAlternatives,
-          });
+function addExpert() {
+    $("#addExpert").remove();
+    renderView();
 
-          alternativesTables[i] = alternativesTable
-      }
-
-      $("#table-group").show("slow");
-  })
-
-
-  $('#submitTables').click(function() {
-      controller.criteriorsPriority = stringToNumberArray(criteriorsPriorityTable.getData());
-      controller.alternatives = alternativesTables.map(function(item) {
-          return stringToNumberArray(item.getData());
-      });
-
-       let raiting  = controller.getResult()
-
-        raiting.forEach(function(item, i, arr) {
-          let domElement = `<div class='raiting'>${i+1}) ${arr[i][0]}</div>`;
-          $("#wrap-raiting").append(domElement);
-                })
-
-
-
-  })
-
-  function stringToNumberArray(array) {
-      for (let i = 0; i < array.length; i++) {
-          for (let j = 0; j < array.length; j++) {
-              array[i][j] = +array[i][j];
-          }
-      }
-      return array
-  }
+}
